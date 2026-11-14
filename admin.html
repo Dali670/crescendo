@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espace Admin · Crescendo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="page">
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Crescendo</a>
+  <nav class="menu" aria-label="Navigation principale">
+    <a href="index.html">Landing page</a>
+    <a href="blog.html" >Blog</a>
+    <a href="admin.html" aria-current="page">Espace Admin</a>
+  </nav>
+</div></header>
+<main class="wrap">
+<h1>Espace Admin</h1>
+<form class="login" id="login">
+  <input type="email" id="email" placeholder="Email" required autocomplete="username">
+  <input type="password" id="pw" placeholder="Mot de passe" required autocomplete="current-password">
+  <button>Se connecter</button>
+  <small id="err" role="alert"></small>
+</form>
+<section id="panel" hidden>
+  <p><button id="out" class="btn">Se déconnecter</button> <button id="new" class="btn">Nouvel article</button></p>
+  <form class="login" id="form" style="max-width:40rem">
+    <input id="f-title" placeholder="Titre" required>
+    <input id="f-slug" placeholder="slug-de-l-article" required pattern="[a-z0-9-]+">
+    <input id="f-excerpt" placeholder="Résumé">
+    <textarea id="f-content" rows="10" placeholder="Contenu (une ligne vide = nouveau paragraphe)" style="font:inherit;padding:.6rem;border-radius:8px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink)"></textarea>
+    <label><input type="checkbox" id="f-pub"> Publié</label>
+    <button>Enregistrer</button>
+    <small id="msg" role="status"></small>
+  </form>
+  <h2>Articles</h2>
+  <div class="cards" id="posts"></div>
+</section>
+<script type="module">
+import { supabase } from "./config.js";
+const $ = id => document.getElementById(id);
+let editing = null;
+async function isAdmin(){ const { data } = await supabase.rpc("is_admin"); return data === true; }
+async function show(){
+  const { data:{ session } } = await supabase.auth.getSession();
+  const ok = session && await isAdmin();
+  $("login").hidden = !!ok; $("panel").hidden = !ok;
+  if (session && !ok) { $("err").textContent = "Ce compte n'a pas les droits admin."; await supabase.auth.signOut(); }
+  if (ok) load();
+}
+async function load(){
+  const { data = [] } = await supabase.from("posts").select("*").order("created_at",{ascending:false});
+  $("posts").replaceChildren(...data.map(p => {
+    const c = document.createElement("div"); c.className = "card";
+    const h = document.createElement("h2"); h.textContent = p.title;
+    const t = document.createElement("span"); t.className = "tag"; t.textContent = p.published ? "Publié" : "Brouillon";
+    const e = document.createElement("button"); e.className = "btn"; e.textContent = "Modifier"; e.onclick = () => edit(p);
+    const d = document.createElement("button"); d.className = "btn"; d.textContent = "Supprimer";
+    d.onclick = async () => { if (confirm("Supprimer « " + p.title + " » ?")) { await supabase.from("posts").delete().eq("id", p.id); load(); } };
+    c.append(t, h, e, " ", d); return c;
+  }));
+}
+function edit(p){ editing = p?.id ?? null;
+  $("f-title").value = p?.title ?? ""; $("f-slug").value = p?.slug ?? ""; $("f-excerpt").value = p?.excerpt ?? "";
+  $("f-content").value = p?.content ?? ""; $("f-pub").checked = !!p?.published; $("msg").textContent = ""; }
+$("new").onclick = () => edit(null);
+$("login").onsubmit = async e => { e.preventDefault();
+  const { error } = await supabase.auth.signInWithPassword({ email: $("email").value, password: $("pw").value });
+  $("err").textContent = error ? "Identifiants invalides." : ""; if (!error) show(); };
+$("out").onclick = async () => { await supabase.auth.signOut(); show(); };
+$("form").onsubmit = async e => { e.preventDefault();
+  const pub = $("f-pub").checked;
+  const row = { title: $("f-title").value, slug: $("f-slug").value, excerpt: $("f-excerpt").value, content: $("f-content").value,
+    published: pub, updated_at: new Date().toISOString() };
+  if (pub) row.published_at = new Date().toISOString();
+  const { error } = editing ? await supabase.from("posts").update(row).eq("id", editing) : await supabase.from("posts").insert(row);
+  $("msg").textContent = error ? "Erreur : " + error.message : "Enregistré."; if (!error) { edit(null); load(); } };
+show();
+</script>
+</main>
+</body>
+</html>

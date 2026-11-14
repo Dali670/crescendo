@@ -1,0 +1,25 @@
+:root{--paper:#EEF1F5;--paper-2:#fff;--ink:#101B38;--ink-soft:#46506B;--signal:#2339E8;--signal-ink:#fff;--rule:#B9C2D3;--display:"Bricolage Grotesque",system-ui,sans-serif;--text:"Newsreader",Georgia,serif}
+@media(prefers-color-scheme:dark){:root{--paper:#0D1530;--paper-2:#16204A;--ink:#E8ECF8;--ink-soft:#A5AFCB;--signal:#7C8CFF;--signal-ink:#0D1530;--rule:#2E3A6B}}
+.menu{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;font-family:var(--display);font-weight:500}
+.menu a{color:var(--ink);text-decoration:none;padding:.25rem 0;border-bottom:2px solid transparent}
+.menu a:hover{border-bottom-color:var(--rule)}
+.menu a[aria-current="page"]{border-bottom-color:var(--signal)}
+.menu a.link{text-decoration:underline;text-underline-offset:4px;border:0}
+body.page{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1.125rem;line-height:1.6}
+body.page header.top{padding:1.25rem 0}
+body.page .wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+body.page header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+body.page .brand{font-family:var(--display);font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none}
+body.page h1{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:2.5rem 0 .5rem}
+body.page .lead{color:var(--ink-soft);max-width:40rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1.25rem;margin:2rem 0 4rem}
+.card{background:var(--paper-2);border:1px solid var(--rule);border-radius:12px;padding:1.25rem}
+.card h2{font-family:var(--display);font-size:1.25rem;margin:.25rem 0 .5rem}
+.card small{color:var(--ink-soft)}
+.tag{display:inline-block;font-family:var(--display);font-size:.8rem;border:1px solid var(--rule);border-radius:99px;padding:.1rem .6rem;color:var(--ink-soft)}
+form.login{display:grid;gap:.75rem;max-width:22rem;margin:2rem 0}
+form.login input,form.login button{font:inherit;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink)}
+form.login button{background:var(--signal);color:var(--signal-ink);border:0;font-family:var(--display);font-weight:700}
+form.login button:disabled,form.login input:disabled{opacity:.55}
+.note{border-left:4px solid var(--signal);padding:.5rem 1rem;background:var(--paper-2);max-width:40rem}
+.btn{font:inherit;font-family:var(--display);padding:.4rem .9rem;border-radius:8px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink);cursor:pointer}

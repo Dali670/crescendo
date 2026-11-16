@@ -4,56 +4,77 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog · Crescendo</title>
+<meta name="description" content="Automatisation, IA et architecture de systèmes pour les PME : les articles de Crescendo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 </head>
-<body class="page">
+<body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html">Crescendo</a>
   <nav class="menu" aria-label="Navigation principale">
-    <a href="index.html">Landing page</a>
+    <a href="index.html">Accueil</a>
     <a href="blog.html" aria-current="page">Blog</a>
-    <a href="admin.html" >Espace Admin</a>
+    <a href="admin.html">Espace Admin</a>
   </nav>
 </div></header>
 <main class="wrap">
-<h1 id="t">Blog</h1>
-<p class="lead" id="l">Automatisation, IA et architecture de systèmes pour les PME.</p>
-<div class="cards" id="list"></div>
-<article id="post" hidden></article>
+  <h1 id="t">Blog</h1>
+  <p class="lead" id="l">Automatisation, IA et architecture de systèmes pour les PME.</p>
+  <p id="state" role="status" hidden></p>
+  <div class="cards" id="list"></div>
+  <article class="prose" id="post" hidden></article>
+</main>
+<footer><div class="wrap">
+  <span>Crescendo</span>
+  <a href="index.html">Accueil</a>
+</div></footer>
 <script type="module">
 import { supabase } from "./config.js";
+import { readingTime } from "./blog-utils.mjs";
+
 const $ = id => document.getElementById(id);
-const fmt = d => d ? new Date(d).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"}) : "";
+const fmt = d => d ? new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) : "";
+const el = (tag, text, cls) => { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; };
+const setDescription = text => document.querySelector("meta[name=description]").setAttribute("content", text);
+const say = text => { $("state").textContent = text; $("state").hidden = false; };
+
 const slug = new URLSearchParams(location.search).get("p");
-if (slug) {
-  const { data } = await supabase.from("posts").select("*").eq("slug", slug).maybeSingle();
-  $("list").hidden = true; $("l").hidden = true;
-  if (!data) { $("t").textContent = "Article introuvable"; }
-  else {
-    document.title = data.title + " · Crescendo";
-    $("t").textContent = data.title;
-    const p = $("post"); p.hidden = false;
-    const meta = document.createElement("small"); meta.textContent = fmt(data.published_at); p.append(meta);
-    data.content.split(/
-{2,}/).forEach(t => { const e = document.createElement("p"); e.textContent = t; p.append(e); });
-    const back = document.createElement("a"); back.href = "blog.html"; back.textContent = "← Tous les articles"; p.append(back);
+
+try {
+  if (slug) {
+    const { data, error } = await supabase.from("posts").select("*").eq("slug", slug).eq("published", true).maybeSingle();
+    if (error) throw error;
+    $("list").hidden = true; $("l").hidden = true;
+    if (!data) {
+      $("t").textContent = "Article introuvable";
+      const back = el("a", "← Tous les articles"); back.href = "blog.html";
+      $("state").replaceChildren(back); $("state").hidden = false;
+    } else {
+      document.title = data.title + " · Crescendo";
+      setDescription(data.excerpt || data.title);
+      $("t").textContent = data.title;
+      const p = $("post"); p.hidden = false;
+      p.append(el("small", [fmt(data.published_at), readingTime(data.content) + " min de lecture"].filter(Boolean).join(" · "), "meta"));
+      String(data.content ?? "").split(/\n{2,}/).filter(Boolean).forEach(t => p.append(el("p", t)));
+      const back = el("a", "← Tous les articles"); back.href = "blog.html"; p.append(back);
+    }
+  } else {
+    const { data = [], error } = await supabase.from("posts").select("slug,title,excerpt,content,published_at").eq("published", true).order("published_at", { ascending: false });
+    if (error) throw error;
+    if (!data.length) say("Aucun article pour le moment.");
+    for (const a of data) {
+      const c = el("article", null, "card");
+      const h = el("h2"); const l = el("a", a.title); l.href = "blog.html?p=" + encodeURIComponent(a.slug); h.append(l);
+      c.append(h, el("p", a.excerpt), el("small", [fmt(a.published_at), readingTime(a.content) + " min"].filter(Boolean).join(" · ")));
+      $("list").append(c);
+    }
   }
-} else {
-  const { data = [] } = await supabase.from("posts").select("slug,title,excerpt,published_at").eq("published", true).order("published_at", { ascending: false });
-  if (!data.length) { $("list").innerHTML = "<p>Aucun article pour le moment.</p>"; }
-  for (const a of data) {
-    const c = document.createElement("article"); c.className = "card";
-    const h = document.createElement("h2"), l = document.createElement("a");
-    l.href = "blog.html?p=" + encodeURIComponent(a.slug); l.textContent = a.title; l.style.color = "inherit"; h.append(l);
-    const p = document.createElement("p"); p.textContent = a.excerpt;
-    const s = document.createElement("small"); s.textContent = fmt(a.published_at);
-    c.append(h, p, s); $("list").append(c);
-  }
+} catch (e) {
+  $("list").hidden = true;
+  say("Impossible de charger les articles.");
 }
 </script>
-</main>
 </body>
 </html>

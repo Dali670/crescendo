@@ -133,3 +133,19 @@ test("index.html: faq has at least 3 details", () => {
 test("index.html: meta description present", () => {
   assert.match(index(), /<meta name="description" content="[^"]{40,}"/);
 });
+
+// ---- Task 4: blog ---------------------------------------------------------
+const blog = () => read("blog.html");
+
+test("blog.html: uses prose column", () => assert.ok(blog().includes('class="prose"')));
+test("blog.html: renders article data as text only", () => {
+  assert.ok(!/innerHTML\s*=\s*(?!"<p>Aucun)/.test(blog()), "innerHTML assignment found");
+});
+test("blog.html: handles unknown slug", () => assert.ok(blog().includes("Article introuvable")));
+test("blog.html: handles load failure", () => assert.ok(blog().includes("Impossible de charger les articles.")));
+test("blog.html: sets per-article title and meta description", () => {
+  const b = blog();
+  assert.ok(b.includes("document.title"));
+  assert.match(b, /meta\[name=["']?description/);
+});
+test("blog.html: imports readingTime", () => assert.ok(blog().includes('from "./blog-utils.mjs"')));

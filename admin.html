@@ -3,48 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 <title>Espace Admin · Crescendo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 </head>
-<body class="page">
+<body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html">Crescendo</a>
   <nav class="menu" aria-label="Navigation principale">
-    <a href="index.html">Landing page</a>
-    <a href="blog.html" >Blog</a>
+    <a href="index.html">Accueil</a>
+    <a href="blog.html">Blog</a>
     <a href="admin.html" aria-current="page">Espace Admin</a>
   </nav>
 </div></header>
-<main class="wrap">
-<h1>Espace Admin</h1>
-<form class="login" id="login">
-  <input type="email" id="email" placeholder="Email" required autocomplete="username">
-  <input type="password" id="pw" placeholder="Mot de passe" required autocomplete="current-password">
-  <button>Se connecter</button>
-  <small id="err" role="alert"></small>
-</form>
-<section id="panel" hidden>
-  <p><button id="out" class="btn">Se déconnecter</button> <button id="new" class="btn">Nouvel article</button></p>
-  <form class="login" id="form" style="max-width:40rem">
-    <input id="f-title" placeholder="Titre" required>
-    <input id="f-slug" placeholder="slug-de-l-article" required pattern="[a-z0-9-]+">
-    <input id="f-excerpt" placeholder="Résumé">
-    <textarea id="f-content" rows="10" placeholder="Contenu (une ligne vide = nouveau paragraphe)" style="font:inherit;padding:.6rem;border-radius:8px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink)"></textarea>
-    <label><input type="checkbox" id="f-pub"> Publié</label>
-    <button>Enregistrer</button>
-    <small id="msg" role="status"></small>
+<main class="wrap admin">
+  <h1>Espace Admin</h1>
+
+  <form class="login" id="login">
+    <label for="email">Email</label>
+    <input type="email" id="email" required autocomplete="username">
+    <label for="pw">Mot de passe</label>
+    <input type="password" id="pw" required autocomplete="current-password">
+    <button class="btn">Se connecter</button>
+    <small id="err" role="alert"></small>
   </form>
-  <h2>Articles</h2>
-  <div class="cards" id="posts"></div>
-</section>
+
+  <section id="panel" hidden>
+    <div class="toolbar">
+      <button class="btn" id="new" type="button">Nouvel article</button>
+      <button class="btn-ghost" id="out" type="button">Se déconnecter</button>
+    </div>
+
+    <form class="editor" id="form">
+      <div class="fields">
+        <label for="f-title">Titre</label>
+        <input id="f-title" required>
+        <label for="f-slug">Adresse (slug)</label>
+        <input id="f-slug" required pattern="[a-z0-9\-]+" placeholder="slug-de-l-article">
+        <label for="f-excerpt">Résumé</label>
+        <input id="f-excerpt">
+        <label for="f-pub"><span><input type="checkbox" id="f-pub"> Publié</span></label>
+        <button class="btn">Enregistrer</button>
+        <small id="msg" role="status"></small>
+      </div>
+      <div class="fields">
+        <label for="f-content">Contenu (une ligne vide = nouveau paragraphe)</label>
+        <textarea id="f-content" rows="14"></textarea>
+      </div>
+    </form>
+
+    <h2>Articles</h2>
+    <table class="posts-table">
+      <thead><tr><th scope="col">Titre</th><th scope="col">Statut</th><th scope="col">Créé le</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody id="posts"></tbody>
+    </table>
+  </section>
+</main>
+<footer><div class="wrap">
+  <span>Crescendo</span>
+  <a href="index.html">Retour au site</a>
+</div></footer>
 <script type="module">
 import { supabase } from "./config.js";
 const $ = id => document.getElementById(id);
+const cell = (...kids) => { const td = document.createElement("td"); td.append(...kids); return td; };
 let editing = null;
+
 async function isAdmin(){ const { data } = await supabase.rpc("is_admin"); return data === true; }
+
 async function show(){
   const { data:{ session } } = await supabase.auth.getSession();
   const ok = session && await isAdmin();
@@ -52,21 +81,27 @@ async function show(){
   if (session && !ok) { $("err").textContent = "Ce compte n'a pas les droits admin."; await supabase.auth.signOut(); }
   if (ok) load();
 }
+
 async function load(){
-  const { data = [] } = await supabase.from("posts").select("*").order("created_at",{ascending:false});
+  const { data = [], error } = await supabase.from("posts").select("*").order("created_at", { ascending: false });
+  if (error) { $("msg").textContent = "Erreur : " + error.message; return; }
   $("posts").replaceChildren(...data.map(p => {
-    const c = document.createElement("div"); c.className = "card";
-    const h = document.createElement("h2"); h.textContent = p.title;
-    const t = document.createElement("span"); t.className = "tag"; t.textContent = p.published ? "Publié" : "Brouillon";
-    const e = document.createElement("button"); e.className = "btn"; e.textContent = "Modifier"; e.onclick = () => edit(p);
-    const d = document.createElement("button"); d.className = "btn"; d.textContent = "Supprimer";
+    const tr = document.createElement("tr");
+    const st = document.createElement("span"); st.className = "status";
+    st.dataset.state = p.published ? "published" : "draft"; st.textContent = p.published ? "Publié" : "Brouillon";
+    const e = document.createElement("button"); e.className = "btn-ghost"; e.type = "button"; e.textContent = "Modifier"; e.onclick = () => edit(p);
+    const d = document.createElement("button"); d.className = "btn-ghost"; d.type = "button"; d.textContent = "Supprimer";
     d.onclick = async () => { if (confirm("Supprimer « " + p.title + " » ?")) { await supabase.from("posts").delete().eq("id", p.id); load(); } };
-    c.append(t, h, e, " ", d); return c;
+    tr.append(cell(p.title), cell(st), cell(p.created_at ? new Date(p.created_at).toLocaleDateString("fr-FR") : ""), cell(e, " ", d));
+    return tr;
   }));
 }
+
 function edit(p){ editing = p?.id ?? null;
   $("f-title").value = p?.title ?? ""; $("f-slug").value = p?.slug ?? ""; $("f-excerpt").value = p?.excerpt ?? "";
-  $("f-content").value = p?.content ?? ""; $("f-pub").checked = !!p?.published; $("msg").textContent = ""; }
+  $("f-content").value = p?.content ?? ""; $("f-pub").checked = !!p?.published; $("msg").textContent = "";
+  $("f-title").focus(); }
+
 $("new").onclick = () => edit(null);
 $("login").onsubmit = async e => { e.preventDefault();
   const { error } = await supabase.auth.signInWithPassword({ email: $("email").value, password: $("pw").value });
@@ -78,9 +113,8 @@ $("form").onsubmit = async e => { e.preventDefault();
     published: pub, updated_at: new Date().toISOString() };
   if (pub) row.published_at = new Date().toISOString();
   const { error } = editing ? await supabase.from("posts").update(row).eq("id", editing) : await supabase.from("posts").insert(row);
-  $("msg").textContent = error ? "Erreur : " + error.message : "Enregistré."; if (!error) { edit(null); load(); } };
+  $("msg").textContent = error ? "Erreur : " + error.message : "Enregistré."; if (!error) { edit(null); load(); $("msg").textContent = "Enregistré."; } };
 show();
 </script>
-</main>
 </body>
 </html>

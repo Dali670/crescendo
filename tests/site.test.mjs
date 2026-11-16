@@ -149,3 +149,33 @@ test("blog.html: sets per-article title and meta description", () => {
   assert.match(b, /meta\[name=["']?description/);
 });
 test("blog.html: imports readingTime", () => assert.ok(blog().includes('from "./blog-utils.mjs"')));
+
+// ---- Task 5: admin --------------------------------------------------------
+const admin = () => read("admin.html");
+
+test("admin.html: uses admin layout", () => {
+  const a = admin();
+  for (const k of ["admin", "editor", "posts-table"]) assert.ok(new RegExp(String.raw`class="[^"]*\b${k}\b`).test(a), `missing .${k}`);
+});
+test("admin.html: status messages are announced", () => {
+  const a = admin();
+  assert.ok(a.includes('role="alert"'));
+  assert.ok(a.includes('role="status"'));
+});
+test("admin.html: non-admin message kept", () => assert.ok(admin().includes("Ce compte n'a pas les droits admin.")));
+test("admin.html: uses is_admin rpc and posts table", () => {
+  const a = admin();
+  assert.ok(a.includes('rpc("is_admin")'));
+  assert.ok(a.includes('from("posts")'));
+});
+test("admin.html: every field is labelled", () => {
+  const a = admin();
+  const fields = [...a.matchAll(/<(input|textarea)\b[^>]*>/g)].map((m) => m[0]);
+  assert.ok(fields.length >= 6);
+  for (const f of fields) {
+    const id = f.match(/\bid="([^"]+)"/)?.[1];
+    assert.ok(f.includes("aria-label=") || (id && a.includes(`for="${id}"`)), `unlabelled field: ${f}`);
+  }
+});
+test("admin.html: hidden from search engines", () => assert.ok(admin().includes('<meta name="robots" content="noindex">')));
+test("admin.html: keeps the delete confirmation", () => assert.ok(admin().includes("confirm(")));

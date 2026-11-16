@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crescendo, automatisation et IA pour PME</title>
+<meta name="description" content="Diagnostic d'architecture puis premier automate livré en 1 à 2 semaines. Réservez un appel découverte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #EEF1F5;
+  --paper-2: #E2E7EE;
+  --ink: #101B38;
+  --ink-soft: #46506B;
+  --signal: #2339E8;
+  --signal-ink: #FFFFFF;
+  --need-bg: #FFE08A;
+  --need-ink: #5A4300;
+  --rule: #B9C2D3;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --text: "Newsreader", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0D1530;
+    --paper-2: #16204A;
+    --ink: #E8ECF8;
+    --ink-soft: #A5AFCB;
+    --signal: #7C8CFF;
+    --signal-ink: #0D1530;
+    --need-bg: #4B3A00;
+    --need-ink: #FFE08A;
+    --rule: #2E3A6B;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0D1530; --paper-2: #16204A; --ink: #E8ECF8; --ink-soft: #A5AFCB;
+  --signal: #7C8CFF; --signal-ink: #0D1530; --need-bg: #4B3A00; --need-ink: #FFE08A; --rule: #2E3A6B;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 68rem; margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 48rem) { .wrap { padding: 0 2rem; } }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.3rem, 6.4vw, 4.6rem); max-width: 17ch; }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); max-width: 22ch; }
+h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 2px;
+}
+
+.need {
+  background: var(--need-bg); color: var(--need-ink);
+  font-family: var(--display); font-weight: 500; font-size: 0.85em;
+  padding: 0.1em 0.45em; border-radius: 3px;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--signal); color: var(--signal-ink);
+  font-family: var(--display); font-weight: 700; font-size: 1.05rem;
+  padding: 0.95em 1.5em; border-radius: 3px; text-decoration: none;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* header */
+header.top { padding: 1.25rem 0; }
+header.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.brand i { display: inline-block; width: 1.15em; height: 0.7em; margin-right: 0.35em; vertical-align: -0.02em;
+  background: var(--signal); clip-path: polygon(0 50%, 100% 0, 100% 100%); }
+header.top .link { font-family: var(--display); font-weight: 500; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* hero */
+.hero { padding: 3rem 0 4.5rem; }
+.hero .sub { font-size: 1.3rem; color: var(--ink-soft); margin-top: 1.5rem; max-width: 46ch; }
+.hero .cta-row { margin-top: 2rem; }
+.hero .cta-note { margin-top: 1rem; font-size: 1rem; color: var(--ink-soft); }
+
+.crescendo { margin-top: 3.5rem; height: clamp(110px, 20vw, 190px); display: flex; align-items: center; gap: 4px; }
+.crescendo span {
+  flex: 1; background: var(--ink); border-radius: 2px;
+  height: calc(6% + var(--i) * 2.35%);
+  transform-origin: center;
+  animation: grow .7s cubic-bezier(.2,.7,.2,1) both;
+  animation-delay: calc(var(--i) * 28ms);
+}
+.crescendo span:nth-last-child(-n+6) { background: var(--signal); }
+@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .crescendo span { animation: none; } html { scroll-behavior: auto; } .btn { transition: none; } }
+
+/* sections */
+section.block { padding: 4.5rem 0; border-top: 1px solid var(--rule); }
+section.block > .wrap > h2 { margin-bottom: 2rem; }
+.two { display: grid; gap: 2rem; }
+@media (min-width: 52rem) { .two { grid-template-columns: 5fr 7fr; gap: 4rem; } }
+
+.pain p:last-child { margin-bottom: 0; }
+
+/* steps: real sequence */
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 0; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 3.2rem 1fr; gap: 1rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 700; font-size: 2.4rem; line-height: 1; color: var(--signal); }
+.steps h3 { margin-bottom: .35rem; }
+.steps p { margin: 0; color: var(--ink-soft); }
+
+/* included */
+.incl { list-style: none; padding: 0; margin: 0; }
+.incl li { padding: .9rem 0; border-top: 1px solid var(--rule); }
+.incl li:last-child { border-bottom: 1px solid var(--rule); }
+
+/* guarantee */
+.guarantee { background: var(--paper-2); }
+.guarantee .big { font-family: var(--display); font-weight: 500; font-size: clamp(1.4rem, 2.8vw, 2rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 30ch; margin-bottom: 1.25rem; }
+
+/* price */
+.price-box { border: 2px dashed var(--ink-soft); padding: 1.5rem; max-width: 40rem; }
+
+/* faq */
+details { border-top: 1px solid var(--rule); padding: 1.1rem 0; }
+details:last-of-type { border-bottom: 1px solid var(--rule); }
+summary { font-family: var(--display); font-weight: 500; font-size: 1.2rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 1.5rem; line-height: 1; color: var(--signal); }
+details[open] summary::after { content: "\2212"; }
+details p { margin: .8rem 0 0; color: var(--ink-soft); }
+
+/* proof */
+.proof .price-box { max-width: 46rem; }
+
+/* final */
+.final { background: var(--ink); color: var(--paper); }
+.final h2 { max-width: 16ch; }
+.final p { color: color-mix(in srgb, var(--paper) 78%, transparent); margin-top: 1.25rem; }
+.final .btn { background: var(--paper); color: var(--ink); margin-top: 1rem; }
+.final .need { background: var(--need-bg); color: var(--need-ink); }
+
+footer { padding: 2rem 0 3rem; font-size: .95rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>Crescendo</a>
+    <a class="link" href="#reserver">Réserver un appel</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <h1>Un premier automate en service sous 2 semaines, bâti sur une architecture qui tient</h1>
+      <p class="sub">Crescendo cartographie les tâches manuelles de votre PME, puis automatise la plus coûteuse. Vous validez chaque étape avant de payer la suivante.</p>
+      <div class="cta-row">
+        <a class="btn" href="#reserver">Réserver mon appel découverte</a>
+        <p class="cta-note">1 nouveau projet lancé par mois. Prochain créneau : <span class="need">[NEED : date du prochain créneau]</span></p>
+      </div>
+      <div class="crescendo" aria-hidden="true">
+        <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span><span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span><span style="--i:21"></span><span style="--i:22"></span><span style="--i:23"></span><span style="--i:24"></span><span style="--i:25"></span><span style="--i:26"></span><span style="--i:27"></span><span style="--i:28"></span><span style="--i:29"></span><span style="--i:30"></span><span style="--i:31"></span><span style="--i:32"></span><span style="--i:33"></span><span style="--i:34"></span><span style="--i:35"></span><span style="--i:36"></span><span style="--i:37"></span><span style="--i:38"></span><span style="--i:39"></span><span style="--i:40"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pain">
+    <div class="wrap two">
+      <h2>Vos équipes ressaisissent les mêmes données, tous les jours</h2>
+      <div>
+        <p>Saisie en double, relances faites à la main, reporting recopié d'un outil à l'autre. Chaque tâche paraît petite. Additionnées sur un mois, elles occupent des journées entières de votre équipe, et chaque ressaisie ajoute un risque d'erreur.</p>
+        <p>Beaucoup de PME ont déjà essayé un script ou un outil no-code branché dans un coin. Il fonctionne jusqu'au jour où un outil change, et personne ne sait plus comment il marche.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <h2>On dessine l'architecture avant d'automatiser</h2>
+      <p>Crescendo commence par un diagnostic : où sont vos flux, vos données, vos outils. L'automate est construit sur ce plan. Le suivant s'y branche sans repartir de zéro.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <h2>Comment ça marche</h2>
+      <ol class="steps">
+        <li><div><h3>Appel découverte</h3><p>On regarde ensemble vos tâches manuelles et on vérifie que Crescendo vous convient.</p></div></li>
+        <li><div><h3>Diagnostic d'architecture</h3><p>Cartographie des tâches, classement par heures gagnées, plan d'architecture. Vous validez le livrable.</p></div></li>
+        <li><div><h3>Premier automate</h3><p>Livré en 1 à 2 semaines sur l'architecture validée.</p></div></li>
+        <li><div><h3>Prise en main et support</h3><p>Documentation des flux, formation de votre équipe, 1 mois de support.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <h2>Ce qui est inclus</h2>
+      <ul class="incl">
+        <li>Diagnostic d'architecture et plan chiffré en heures gagnées</li>
+        <li>Un automate livré et mis en service</li>
+        <li>Documentation des flux</li>
+        <li>Prise en main de votre équipe</li>
+        <li>1 mois de support après livraison (corrections de bugs de l'automate livré)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block guarantee">
+    <div class="wrap two">
+      <h2>Garantie par jalon</h2>
+      <div>
+        <p class="big">Vous payez l'étape 1, vous recevez le diagnostic, vous décidez.</p>
+        <p>Si le diagnostic ne vous convainc pas, vous vous arrêtez là, sans engagement pour l'étape 2. Le paiement de la livraison suit le même principe : par jalon, après validation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <h2>Prix</h2>
+      <div class="price-box">
+        Diagnostic d'architecture : 300 €. Projet au forfait avec premier automate : 3 000 €. Si vous poursuivez après le diagnostic, les 300 € sont déduits : 2 700 € restants. Paiement par jalon, après validation.
+      </div>
+    </div>
+  </section>
+
+  <section class="block proof">
+    <div class="wrap two">
+      <h2>Preuves</h2>
+      <div class="price-box">
+        <span class="need">[NEED : noms de clients citables, secteur, résultat chiffré réel, citation avec accord]</span>
+        <p style="margin:1rem 0 0;color:var(--ink-soft);font-size:1rem">Aucun logo ni témoignage affiché tant qu'ils ne sont pas réels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <h2>Questions fréquentes</h2>
+      <div>
+        <details>
+          <summary>C'est trop cher pour nous.</summary>
+          <p>Le prix est fixé avant le début du projet. Le diagnostic chiffre les heures perdues chaque mois, vous comparez donc le coût et le gain avant de signer l'étape 2.</p>
+        </details>
+        <details>
+          <summary>Comment savoir que ça rapportera ?</summary>
+          <p>Le gain attendu est chiffré dans le diagnostic, avant que vous vous engagiez sur l'automate.</p>
+        </details>
+        <details>
+          <summary>Mon équipe ne l'utilisera pas.</summary>
+          <p>Les personnes concernées sont consultées dès le diagnostic. L'automate retire leurs tâches répétitives. La formation est incluse.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block final" id="reserver">
+    <div class="wrap">
+      <h2>Un seul projet lancé par mois</h2>
+      <p>Racontez-nous la tâche qui occupe le plus votre équipe. En 45 minutes, nous voyons si Crescendo peut l'automatiser.</p>
+      <!-- NEED: remplacer href par le lien de réservation réel (agenda) -->
+      <a class="btn" href="#reserver">Réserver mon appel découverte</a>
+      <p style="margin-top:1rem"><span class="need">[NEED : lien de réservation de l'agenda]</span></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Crescendo. <span class="need">[NEED : mentions légales, contact]</span></div>
+</footer>
+
+</body>
+</html>

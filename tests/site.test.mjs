@@ -100,9 +100,9 @@ test("index.html: single call-to-action label, used at least twice", () => {
   for (const l of labels) assert.equal(l, CTA);
 });
 
-test("index.html: all buttons target #reserver and the anchor exists", () => {
+test("index.html: all buttons target the Cal.com booking page and the #reserver anchor exists", () => {
   const html = index();
-  for (const m of html.matchAll(/<a[^>]*class="[^"]*\bbtn\b[^"]*"[^>]*>/g)) assert.ok(m[0].includes('href="#reserver"'), m[0]);
+  for (const m of html.matchAll(/<a[^>]*class="[^"]*\bbtn\b[^"]*"[^>]*>/g)) assert.ok(m[0].includes('href="https://cal.com/dali-ubpfej/cal-ia"'), m[0]);
   assert.ok(html.includes('id="reserver"'));
 });
 

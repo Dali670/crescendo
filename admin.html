@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
+<a class="skip" href="#main">Aller au contenu</a>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html">Crescendo</a>
   <nav class="menu" aria-label="Navigation principale">
@@ -19,7 +20,7 @@
     <a href="admin.html" aria-current="page">Espace Admin</a>
   </nav>
 </div></header>
-<main class="wrap admin">
+<main id="main" class="wrap admin">
   <h1>Espace Admin</h1>
 
   <form class="login" id="login">
@@ -45,7 +46,7 @@
         <input id="f-slug" required pattern="[a-z0-9\-]+" placeholder="slug-de-l-article">
         <label for="f-excerpt">Résumé</label>
         <input id="f-excerpt">
-        <label for="f-pub"><span><input type="checkbox" id="f-pub"> Publié</span></label>
+        <label class="check" for="f-pub"><input type="checkbox" id="f-pub"> Publié</label>
         <button class="btn">Enregistrer</button>
         <small id="msg" role="status"></small>
       </div>

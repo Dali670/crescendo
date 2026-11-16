@@ -88,3 +88,48 @@ test("site.css: contrast AA in light and dark themes", () => {
     }
   }
 });
+
+// ---- Task 3: landing ------------------------------------------------------
+const CTA = "Réserver un appel découverte gratuit";
+const index = () => read("index.html");
+
+test("index.html: single call-to-action label, used at least twice", () => {
+  const html = index();
+  const labels = [...html.matchAll(/<a[^>]*class="[^"]*\bbtn\b[^"]*"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => m[1].trim());
+  assert.ok(labels.length >= 2, "expected at least 2 buttons");
+  for (const l of labels) assert.equal(l, CTA);
+});
+
+test("index.html: all buttons target #reserver and the anchor exists", () => {
+  const html = index();
+  for (const m of html.matchAll(/<a[^>]*class="[^"]*\bbtn\b[^"]*"[^>]*>/g)) assert.ok(m[0].includes('href="#reserver"'), m[0]);
+  assert.ok(html.includes('id="reserver"'));
+});
+
+test("index.html: no inline style block", () => {
+  assert.ok(!/<style[\s>]/.test(index()));
+});
+
+test("index.html: no price on the landing", () => {
+  assert.ok(!/\d[\d\s  ]*€/.test(index()));
+});
+
+test("index.html: proof is scoped to one client", () => {
+  const html = index();
+  assert.ok(html.includes("15 h par semaine"));
+  assert.ok(html.includes("chez un client"));
+  assert.ok(!html.includes("en moyenne"));
+});
+
+test("index.html: sections appear in the specified order", () => {
+  const found = [...index().matchAll(/<section[^>]*data-section="([a-z]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(found, ["hero", "pain", "solution", "steps", "included", "proof", "faq", "final"]);
+});
+
+test("index.html: faq has at least 3 details", () => {
+  assert.ok((index().match(/<details/g) ?? []).length >= 3);
+});
+
+test("index.html: meta description present", () => {
+  assert.match(index(), /<meta name="description" content="[^"]{40,}"/);
+});

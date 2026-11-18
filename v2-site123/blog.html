@@ -1,36 +1,164 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog · Crescendo</title>
 <meta name="description" content="Automatisation, IA et architecture de systèmes pour les PME : les articles de Crescendo.">
+<title>Blog · Crescendo</title>
+<link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/ai_app_builder/v3/assets/minimize_css/index.css?t=css_y254_67419079&w=12667493">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/ai_app_builder/v3/assets/css/theme.css?t=css_y254_67419079&w=12667493">
+<link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/ai_app_builder/v3/assets/css/main.css?t=css_y254_67419079&w=12667493">
+<link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/ai_app_builder/v3/assets/css/components.css?t=css_y254_67419079&w=12667493">
+<link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/ai_app_builder/v3/assets/css/layout.css?t=css_y254_67419079&w=12667493"></head>
 <link rel="stylesheet" href="site.css">
 </head>
-<body>
+<body class="min-h-screen bg-[var(--background-color)] text-[var(--text-color)]" style="font-family: var(--font-body);">
 <a class="skip" href="#main">Aller au contenu</a>
-<header class="top"><div class="wrap">
-  <a class="brand" href="index.html">Crescendo</a>
-  <nav class="menu" aria-label="Navigation principale">
-    <a href="index.html">Accueil</a>
-    <a href="blog.html" aria-current="page">Blog</a>
-    <a href="admin.html">Espace Admin</a>
-  </nav>
-</div></header>
-<main id="main" class="wrap">
+<header class="site-header fixed left-0 right-0 top-0 z-40 border-b border-[var(--border-color)]">
+    <nav class="mx-auto flex max-w-[calc(72rem+4rem)] items-center justify-between px-5 py-3.5 sm:px-8" aria-label="Navigation principale">
+        <a href="index.html#top" class="flex items-center gap-3 transition-opacity duration-300 hover:opacity-80 focus:outline-none" aria-label="Crescendo, retour en haut">
+            <img  alt="Logo Crescendo" sizes="56px" class="logo-badge h-10 w-auto rounded-lg object-contain" src="https://files.cdn-files-a.com/uploads/12667493/800_6afdc0613a263.png?ratio=3:2&format=avif" srcset="https://files.cdn-files-a.com/uploads/12667493/100_6afdc0613a263.png?ratio=3:2&format=avif 100w, https://files.cdn-files-a.com/uploads/12667493/400_6afdc0613a263.png?ratio=3:2&format=avif 400w, https://files.cdn-files-a.com/uploads/12667493/800_6afdc0613a263.png?ratio=3:2&format=avif 800w, https://files.cdn-files-a.com/uploads/12667493/1200_6afdc0613a263.png?ratio=3:2&format=avif 1200w, https://files.cdn-files-a.com/uploads/12667493/1600_6afdc0613a263.png?ratio=3:2&format=avif 1600w, https://files.cdn-files-a.com/uploads/12667493/2000_6afdc0613a263.png?ratio=3:2&format=avif 2000w">
+            <span class="text-xl font-semibold tracking-[-0.02em] text-[var(--text-color)]" style="font-family: var(--font-logo);">Crescendo</span>
+        </a>
+
+        <div class="hidden items-center gap-7 text-xl font-medium lg:flex">
+            <a href="index.html#probleme" class="text-black transition-colors hover:text-[var(--accent-dark)]">Nos services</a>
+            <a href="blog.html" class="text-black transition-colors hover:text-[var(--accent-dark)]">Blog</a>
+            <a href="admin.html" class="text-black transition-colors hover:text-[var(--accent-dark)]">Espace Admin</a>
+            <a href="index.html#prix" class="text-black transition-colors hover:text-[var(--accent-dark)]">Prix</a>
+            <a href="index.html#faq" class="text-black transition-colors hover:text-[var(--accent-dark)]">FAQ</a>
+            <a href="index.html#contact" class="ml-1 inline-flex min-h-11 items-center btn-gradient rounded-full px-5 text-sm font-semibold text-white shadow-[var(--shadow-button)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2">Réserver un appel</a>
+        </div>
+
+        <button type="button" id="navOpenButton" class="inline-flex min-h-11 w-11 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--nav-bg)] text-[var(--text-color)] shadow-[var(--shadow-soft)] transition-all hover:bg-[var(--surface-color)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] lg:hidden" aria-label="Ouvrir le menu">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+    </nav>
+
+    <div id="navOverlay" class="nav-overlay fixed inset-0 z-[80] min-h-dvh flex-col overflow-y-auto bg-[var(--background-color)] text-[var(--text-color)]" aria-hidden="true">
+        <div class="shrink-0 border-b border-[var(--border-color)] bg-[var(--background-color)]">
+            <div class="mx-auto flex w-full max-w-[calc(72rem+4rem)] items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+                <a href="index.html#top" class="nav-close-link flex min-w-0 items-center gap-3 transition-opacity duration-300 hover:opacity-80 focus:outline-none" aria-label="Crescendo, retour en haut">
+                    <img  alt="Logo Crescendo" sizes="48px" class="logo-badge h-9 w-auto shrink-0 rounded-lg object-contain" src="https://files.cdn-files-a.com/uploads/12667493/800_6afdc0613a263.png?ratio=3:2&format=avif" srcset="https://files.cdn-files-a.com/uploads/12667493/100_6afdc0613a263.png?ratio=3:2&format=avif 100w, https://files.cdn-files-a.com/uploads/12667493/400_6afdc0613a263.png?ratio=3:2&format=avif 400w, https://files.cdn-files-a.com/uploads/12667493/800_6afdc0613a263.png?ratio=3:2&format=avif 800w, https://files.cdn-files-a.com/uploads/12667493/1200_6afdc0613a263.png?ratio=3:2&format=avif 1200w, https://files.cdn-files-a.com/uploads/12667493/1600_6afdc0613a263.png?ratio=3:2&format=avif 1600w, https://files.cdn-files-a.com/uploads/12667493/2000_6afdc0613a263.png?ratio=3:2&format=avif 2000w">
+                    <span class="truncate text-lg font-semibold text-[var(--text-color)]" style="font-family: var(--font-logo);">Crescendo</span>
+                </a>
+                <button type="button" id="navCloseButton" class="inline-flex min-h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--surface-color)] text-[var(--text-color)] shadow-[var(--shadow-soft)] transition-all hover:bg-[var(--glass-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]" aria-label="Fermer le menu">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-10 sm:max-w-xl sm:px-8">
+            <div class="rounded-[2rem] border border-[var(--glass-border)] bg-[var(--surface-color)] p-4 shadow-[var(--shadow-soft)] sm:p-6">
+                <p class="mb-3 px-2 text-xs font-bold uppercase tracking-[0.24em] text-[var(--accent-dark)]">Menu</p>
+                <nav class="grid divide-y divide-[var(--glass-border)]" aria-label="Navigation mobile">
+                    <a href="index.html#top" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>Accueil</span>
+                        <i class="fa-solid fa-arrow-up text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                    <a href="index.html#probleme" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>Nos services</span>
+                        <i class="fa-solid fa-circle-exclamation text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                    <a href="blog.html" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>Blog</span>
+                        <i class="fa-solid fa-diagram-project text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                    <a href="admin.html" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>Espace Admin</span>
+                        <i class="fa-solid fa-list-check text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                    <a href="index.html#prix" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>Prix</span>
+                        <i class="fa-solid fa-tag text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                    <a href="index.html#faq" class="nav-close-link flex min-h-14 items-center justify-between rounded-2xl px-2 text-3xl font-semibold text-black transition-colors hover:text-[var(--accent-dark)] sm:text-4xl" style="font-family: var(--font-heading);">
+                        <span>FAQ</span>
+                        <i class="fa-solid fa-circle-question text-sm text-[var(--accent-color)]"></i>
+                    </a>
+                </nav>
+                <a href="index.html#contact" class="nav-close-link mt-5 flex min-h-12 w-full items-center justify-center btn-gradient rounded-full px-6 text-base font-semibold text-white shadow-[var(--shadow-button)]">Réserver mon appel découverte</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main id="main" class="wrap" style="padding-top:7.5rem;min-height:70vh">
   <h1 id="t">Blog</h1>
   <p class="lead" id="l">Automatisation, IA et architecture de systèmes pour les PME.</p>
   <p id="state" role="status" hidden></p>
   <div class="cards" id="list"></div>
   <article class="prose" id="post" hidden></article>
 </main>
-<footer><div class="wrap">
-  <span>Crescendo</span>
-  <a href="index.html">Accueil</a>
-</div></footer>
+<footer class="px-5 pb-28 pt-14 text-white sm:px-8 md:pb-14" style="background: linear-gradient(160deg, #05060F 0%, #12152F 55%, #000000 100%);">
+    <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-sm">
+                <a href="index.html#top" class="flex items-center gap-3 transition-opacity duration-300 hover:opacity-80" aria-label="Crescendo, retour en haut">
+                    <img  alt="Logo Crescendo" class="logo-badge h-9 w-auto rounded-lg object-contain" src="https://files.cdn-files-a.com/uploads/12667493/100_6afdc0613a263.png?ratio=3:2&format=avif" srcset="https://files.cdn-files-a.com/uploads/12667493/100_6afdc0613a263.png?ratio=3:2&format=avif 100w, https://files.cdn-files-a.com/uploads/12667493/400_6afdc0613a263.png?ratio=3:2&format=avif 400w, https://files.cdn-files-a.com/uploads/12667493/800_6afdc0613a263.png?ratio=3:2&format=avif 800w, https://files.cdn-files-a.com/uploads/12667493/1200_6afdc0613a263.png?ratio=3:2&format=avif 1200w, https://files.cdn-files-a.com/uploads/12667493/1600_6afdc0613a263.png?ratio=3:2&format=avif 1600w, https://files.cdn-files-a.com/uploads/12667493/2000_6afdc0613a263.png?ratio=3:2&format=avif 2000w" loading="lazy" sizes="1px">
+                    <span class="text-2xl font-semibold text-white" style="font-family: var(--font-logo);">Crescendo</span>
+                </a>
+                <p class="mt-4 text-base leading-8 text-white/70">Diagnostic d'architecture puis premier automate livré en 1 à 2 semaines. Vous validez chaque étape avant de payer la suivante.</p>
+                                <div class="mt-6 flex flex-wrap items-center gap-3">
+                                        <a href="https://www.youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-lg text-white transition-all duration-300 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                                        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-lg text-white transition-all duration-300 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                                        <a href="https://www.tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-lg text-white transition-all duration-300 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                                        <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-lg text-white transition-all duration-300 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                                        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-lg text-white transition-all duration-300 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                                    </div>
+            </div>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16">
+                <div>
+                    <p class="text-base font-semibold uppercase tracking-[0.2em] text-white">Explorer</p>
+                    <div class="mt-4 grid gap-2 text-base">
+                        <a href="index.html#probleme" class="text-white/80 transition-colors hover:text-white">Le problème</a>
+                        <a href="index.html#methode" class="text-white/80 transition-colors hover:text-white">La méthode</a>
+                        <a href="index.html#offre" class="text-white/80 transition-colors hover:text-white">Nos services</a>
+                        <a href="index.html#prix" class="text-white/80 transition-colors hover:text-white">Prix</a>
+                        <a href="index.html#faq" class="text-white/80 transition-colors hover:text-white">FAQ</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-base font-semibold uppercase tracking-[0.2em] text-white">Démarrer</p>
+                    <div class="mt-4 grid gap-3 text-base">
+                        <a href="index.html#contact" class="text-white/80 transition-colors hover:text-white">Réserver un appel</a>
+                        <a href="mailto:zoolakay3@gmail.com" class="flex items-center gap-2 text-white/80 transition-colors hover:text-white">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>zoolakay3@gmail.com</span>
+                        </a>
+                        <a href="tel:+33710203040" class="flex items-center gap-2 text-white/80 transition-colors hover:text-white">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>07.10.20.30.40</span>
+                        </a>
+                        <span class="text-white/60">Appel découverte de 45 minutes</span>
+                        <span class="text-white/60">1 nouveau projet par mois</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p>&copy; 2026 Crescendo. Tous droits réservés.</p>
+                <p class="mt-1">Automatisation &amp; IA pour PME.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <a href="mentions-legales.html" class="text-white/70 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white">Mentions légales</a>
+                <a href="politique-confidentialite.html" class="text-white/70 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white">Politique de confidentialité</a>
+            </div>
+        </div>
+    </div>
+</footer>
 <script type="module">
 import { supabase } from "./config.js";
 import { readingTime } from "./blog-utils.mjs";

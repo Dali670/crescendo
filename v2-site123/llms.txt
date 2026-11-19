@@ -1,0 +1,24 @@
+# Crescendo
+
+> Crescendo aide les PME à automatiser leurs tâches manuelles (saisie en double, relances, reporting) avec de l'automatisation et de l'IA. On commence par un diagnostic d'architecture, puis on livre un premier automate en 1 à 2 semaines. Le client valide chaque étape avant de payer la suivante.
+
+## Offre et prix
+- Diagnostic d'architecture : 300 €. Cartographie des tâches et des flux, classement par heures gagnées, plan d'architecture validé par le client.
+- Diagnostic + premier automate, au forfait : 3 000 €. Si le client poursuit après le diagnostic, les 300 € sont déduits (2 700 € restants).
+- Le forfait comprend : un automate livré et mis en service, la documentation des flux, la prise en main de l'équipe, 1 mois de support après livraison (corrections de bugs de l'automate livré).
+- Paiement par jalon, après validation de chaque étape.
+
+## Méthode
+1. Appel découverte de 45 minutes, sans engagement avant le diagnostic.
+2. Diagnostic d'architecture (livrable validé).
+3. Premier automate livré en 1 à 2 semaines.
+4. Prise en main et support pendant 1 mois.
+
+## Contact
+- Formulaire de réservation d'appel : https://v2-site123.vercel.app/#contact
+- Réponse sous un jour ouvré. Un seul nouveau projet accepté par mois.
+- [À compléter : e-mail de contact public]
+
+## Pages
+- [Accueil](https://v2-site123.vercel.app/): présentation, méthode, prix, questions fréquentes, formulaire de contact
+- [Blog](https://v2-site123.vercel.app/blog.html): articles sur l'automatisation et l'IA pour les PME

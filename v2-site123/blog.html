@@ -182,16 +182,24 @@ try {
       $("t").textContent = data.title;
       const p = $("post"); p.hidden = false;
       p.append(el("small", [fmt(data.published_at), readingTime(data.content) + " min de lecture"].filter(Boolean).join(" · "), "meta"));
-      String(data.content ?? "").split(/\n{2,}/).filter(Boolean).forEach(t => p.append(el("p", t)));
+      if (data.image_url) { const im = el("img"); im.src = data.image_url; im.alt = data.title; im.className = "post-img"; p.append(im); }
+      String(data.content ?? "").split(/\n{2,}/).filter(Boolean).forEach(t => {
+        const lines = t.split("\n");
+        if (t.startsWith("### ")) p.append(el("h3", t.slice(4)));
+        else if (t.startsWith("## ")) p.append(el("h2", t.slice(3)));
+        else if (lines.every(l => l.startsWith("- "))) { const ul = el("ul"); lines.forEach(l => ul.append(el("li", l.slice(2)))); p.append(ul); }
+        else p.append(el("p", t));
+      });
       const back = el("a", "← Tous les articles"); back.href = "blog.html"; p.append(back);
     }
   } else {
-    const { data = [], error } = await supabase.from("posts").select("slug,title,excerpt,content,published_at").eq("published", true).order("published_at", { ascending: false });
+    const { data = [], error } = await supabase.from("posts").select("slug,title,excerpt,content,image_url,published_at").eq("published", true).order("published_at", { ascending: false });
     if (error) throw error;
     if (!data.length) say("Aucun article pour le moment.");
     for (const a of data) {
       const c = el("article", null, "card");
       const h = el("h2"); const l = el("a", a.title); l.href = "blog.html?p=" + encodeURIComponent(a.slug); h.append(l);
+      if (a.image_url) { const im = el("img"); im.src = a.image_url; im.alt = ""; im.loading = "lazy"; im.className = "card-img"; c.append(im); }
       c.append(h, el("p", a.excerpt), el("small", [fmt(a.published_at), readingTime(a.content) + " min"].filter(Boolean).join(" · ")));
       $("list").append(c);
     }

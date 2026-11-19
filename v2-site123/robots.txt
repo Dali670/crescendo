@@ -1,0 +1,6 @@
+# Crescendo : tous les robots (moteurs de recherche et assistants IA) sont autorisés.
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://v2-site123.vercel.app/sitemap.xml

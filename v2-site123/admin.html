@@ -105,6 +105,8 @@
         <input id="f-slug" required pattern="[a-z0-9\-]+" placeholder="slug-de-l-article">
         <label for="f-excerpt">Résumé</label>
         <input id="f-excerpt">
+        <label for="f-image">Image (adresse, ex. img/mon-image.png)</label>
+        <input id="f-image" placeholder="img/mon-image.png">
         <label class="check" for="f-pub"><input type="checkbox" id="f-pub"> Publié</label>
         <button class="btn">Enregistrer</button>
         <small id="msg" role="status"></small>
@@ -223,7 +225,7 @@ async function load(){
 }
 
 function edit(p){ editing = p?.id ?? null;
-  $("f-title").value = p?.title ?? ""; $("f-slug").value = p?.slug ?? ""; $("f-excerpt").value = p?.excerpt ?? "";
+  $("f-title").value = p?.title ?? ""; $("f-slug").value = p?.slug ?? ""; $("f-excerpt").value = p?.excerpt ?? ""; $("f-image").value = p?.image_url ?? "";
   $("f-content").value = p?.content ?? ""; $("f-pub").checked = !!p?.published; $("msg").textContent = "";
   $("f-title").focus(); }
 
@@ -234,7 +236,7 @@ $("login").onsubmit = async e => { e.preventDefault();
 $("out").onclick = async () => { await supabase.auth.signOut(); show(); };
 $("form").onsubmit = async e => { e.preventDefault();
   const pub = $("f-pub").checked;
-  const row = { title: $("f-title").value, slug: $("f-slug").value, excerpt: $("f-excerpt").value, content: $("f-content").value,
+  const row = { title: $("f-title").value, slug: $("f-slug").value, excerpt: $("f-excerpt").value, image_url: $("f-image").value.trim() || null, content: $("f-content").value,
     published: pub, updated_at: new Date().toISOString() };
   if (pub) row.published_at = new Date().toISOString();
   const { error } = editing ? await supabase.from("posts").update(row).eq("id", editing) : await supabase.from("posts").insert(row);

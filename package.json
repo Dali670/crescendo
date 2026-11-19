@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "serve": "^14.2.8",
     "supabase": "^3.2.0"
   },
   "dependencies": {
@@ -11,7 +13,10 @@
   "description": "",
   "main": "config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test tests/site.test.mjs tests/blog-utils.test.mjs",
+    "check": "node --test tests/site.test.mjs tests/blog-utils.test.mjs",
+    "test:e2e": "playwright test",
+    "dev": "serve v2-site123 -l 3000"
   },
   "repository": {
     "type": "git",

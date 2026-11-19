@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crescendo : aperçu du design (site de référence)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --background: #F8F9FC;
+  --surface: #EDF1F7;
+  --paper-warm: #EFE9E0;
+  --ink: #171B3E;
+  --ink-soft: rgba(23, 27, 62, 0.7);
+  --line: rgba(23, 27, 62, 0.12);
+  --accent: #12BFBF;
+  --accent-dark: #0E9C9C;
+  --black: #000000;
+  --on-black: #FFFFFF;
+  --on-black-soft: rgba(255, 255, 255, 0.7);
+  --line-on-black: rgba(255, 255, 255, 0.14);
+  --gradient-cta: linear-gradient(100deg, #F45C9E 0%, #FA9A5E 55%, #FBD75F 100%);
+  --shadow-button: 0 14px 30px rgba(255, 106, 69, 0.28);
+  --shadow-glass: 0 30px 70px rgba(0, 0, 0, 0.45);
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--ink); font: 400 16px/1.6 var(--font-body); }
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 48rem) { .wrap { padding: 0 32px; } }
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 0; }
+.kicker { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); }
+section.block { padding: 64px 0; border-top: 1px solid var(--line); }
+section.block > .wrap > h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin-bottom: 8px; }
+.sub { color: var(--ink-soft); max-width: 62ch; margin: 0 0 32px; }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 28px; border-radius: 9999px; font: 600 0.95rem var(--font-body); text-decoration: none; transition: transform 200ms ease-out, box-shadow 200ms ease-out; cursor: pointer; border: 0; }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.btn-primary { background: var(--gradient-cta); color: #000; box-shadow: var(--shadow-button); }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--on-black); border: 1px solid rgba(255,255,255,0.2); }
+.btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+/* Palette */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.sw i { display: block; height: 72px; }
+.sw b { display: block; padding: 8px 10px 0; font-size: 0.85rem; }
+.sw span { display: block; padding: 0 10px 10px; font: 500 0.75rem/1.4 ui-monospace, monospace; color: var(--ink-soft); }
+.on-black { background: var(--black); color: var(--on-black); border-radius: 32px; padding: 28px; border: 1px solid var(--line-on-black); box-shadow: var(--shadow-glass); }
+
+/* Typo */
+.spec { display: grid; gap: 24px; }
+@media (min-width: 48rem) { .spec { grid-template-columns: 1fr 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 32px; padding: 28px; }
+.card .label { font-size: 0.75rem; color: var(--ink-soft); margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+td.num, th.num { text-align: right; }
+
+/* Champs et alertes */
+.field { display: grid; gap: 6px; margin-bottom: 14px; }
+.field label { font-size: 0.85rem; font-weight: 600; }
+.field input { min-height: 44px; padding: 0 14px; border-radius: 14px; border: 1px solid rgba(23,27,62,0.35); background: #fff; font: 400 1rem var(--font-body); color: var(--ink); }
+.field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.field.err input { border-color: #B3261E; }
+.field .msg { font-size: 0.8rem; color: #B3261E; }
+.alert { padding: 12px 16px; border-radius: 14px; font-size: 0.9rem; border: 1px solid; margin-bottom: 10px; }
+.alert.ok { background: #E7F6EE; border-color: #0F7B4B; color: #0A5434; }
+.alert.warn { background: #FFF4DB; border-color: #8A5A00; color: #5E3C00; }
+.alert.bad { background: #FDECEA; border-color: #B3261E; color: #7A1A14; }
+
+/* Mockup landing */
+.mock { border-radius: 32px; overflow: hidden; border: 1px solid var(--line); background: var(--background); }
+.mock nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: rgba(248,249,252,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); gap: 12px; flex-wrap: wrap; }
+.mock nav .brand { display: flex; align-items: center; gap: 14px; font: 500 1.15rem var(--font-heading); letter-spacing: -0.02em; }
+.mono { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 40px; border-radius: 8px; background: #171B3E; border: 2px solid #F45C9E; color: #E9C97A; font: 500 1rem Georgia, serif; }
+.mock nav .links { display: flex; gap: 28px; font-size: 1.1rem; font-weight: 500; }
+.mock .hero { background: #000; color: #fff; padding: 80px 32px; display: grid; gap: 40px; align-items: center; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 64px 64px; }
+@media (min-width: 60rem) { .mock .hero { grid-template-columns: 1.05fr 0.95fr; } }
+.badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--line-on-black); background: rgba(255,255,255,0.04); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.mock .hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.4rem); margin: 24px 0 24px; }
+.mock .hero p.lead { color: var(--on-black-soft); max-width: 52ch; font-size: 1.1rem; margin: 0 0 32px; line-height: 1.8; }
+.mock .hero .row { display: flex; gap: 12px; flex-wrap: wrap; }
+.mock .note { margin: 24px 0 0; font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.6); display: flex; gap: 10px; }
+.mock .note i { color: var(--accent); font-style: normal; }
+.plan { background: #0d0d0d; border: 1px solid var(--line-on-black); border-radius: 32px; padding: 32px; }
+.plan .eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+.plan .row-t { border: 1px solid var(--accent); background: rgba(18,191,191,0.12); border-radius: 18px; padding: 16px 18px; }
+.plan .row-t b { display: block; font-size: 0.95rem; }
+.plan .row-t span { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+.plan .arrow { text-align: center; color: rgba(255,255,255,0.35); padding: 8px 0; }
+.mock .steps { display: grid; gap: 16px; padding: 40px 28px; }
+@media (min-width: 48rem) { .mock .steps { grid-template-columns: repeat(4, 1fr); } }
+.mock .step { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 20px; }
+.mock .step small { color: var(--accent-dark); font-weight: 600; }
+.mock .step h3 { font-size: 1.1rem; margin: 8px 0; }
+.mock .step p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+.mock .prices { display: grid; gap: 16px; padding: 0 28px 40px; }
+@media (min-width: 48rem) { .mock .prices { grid-template-columns: 1fr 1fr; } }
+.price { border-radius: 32px; padding: 38px; border: 1px solid var(--line); background: var(--paper-warm); }
+.price ul { list-style: none; padding: 0; margin: 20px 0 24px; display: grid; gap: 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.price li::before { content: '\2714'; color: var(--accent-dark); margin-right: 10px; }
+.price .btn { width: 100%; }
+.price .kicker { display: flex; align-items: center; gap: 10px; letter-spacing: 0.2em; }
+.price.dark { background: #000; color: #fff; border-color: var(--accent); }
+.price.dark ul { color: var(--on-black-soft); }
+.price.dark li::before { color: var(--accent); }
+.price .amount { font: 600 3rem/1 var(--font-heading); letter-spacing: -0.03em; margin: 16px 0 8px; }
+.price p { margin: 0; color: var(--ink-soft); }
+.price.dark p { color: var(--on-black-soft); }
+</style>
+</head>
+<body>
+
+<header class="wrap" style="padding-top:48px;padding-bottom:24px">
+  <p class="kicker">Système de design · site de référence</p>
+  <h1 style="font-size:clamp(2.2rem,6vw,4rem)">Crescendo</h1>
+  <p class="sub" style="margin-top:12px">Aperçu du design tel qu'il est servi par <code>v2-site123/</code> : fond clair, blocs noirs, accent turquoise, bouton principal en dégradé rose, orange et jaune.</p>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Typographie</h2>
+    <p class="sub">Space Grotesk pour les titres et le logo. Inter pour le texte et l'interface.</p>
+    <div class="spec">
+      <div class="card">
+        <div class="label">Titres : Space Grotesk 600, interlettrage −0,03 em</div>
+        <h1 style="font-size:clamp(2.2rem,4vw,3.4rem)">Un premier automate en service sous 2 semaines</h1>
+        <h2 style="font-size:1.8rem;margin-top:16px">Quatre étapes, chacune validée avant la suivante</h2>
+        <h3 style="font-size:1.1rem;margin-top:12px">Diagnostic d'architecture</h3>
+      </div>
+      <div class="card">
+        <div class="label">Texte : Inter 400, 16 px, interlignage 1,6</div>
+        <p style="margin:0 0 12px">Crescendo cartographie les tâches manuelles de votre PME, puis automatise la plus coûteuse. Vous validez chaque étape avant de payer la suivante.</p>
+        <p style="margin:0;color:var(--ink-soft)">Si le diagnostic ne vous convainc pas, vous vous arrêtez là, sans engagement pour l'étape 2.</p>
+      </div>
+      <div class="card" style="grid-column:1/-1">
+        <div class="label">Données : Inter avec chiffres tabulaires</div>
+        <table>
+          <thead><tr><th>Étape</th><th>Durée</th><th class="num">Prix</th></tr></thead>
+          <tbody>
+            <tr><td>Appel découverte</td><td>45 minutes</td><td class="num">—</td></tr>
+            <tr><td>Diagnostic d'architecture</td><td>à la validation</td><td class="num">300 €</td></tr>
+            <tr><td>Premier automate</td><td>1 à 2 semaines</td><td class="num">3 000 €</td></tr>
+            <tr><td>Prise en main et support</td><td>1 mois</td><td class="num">inclus</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Palette</h2>
+    <p class="sub">Un fond clair, une encre bleu nuit, des blocs noirs pour le contraste, un accent turquoise et un seul dégradé, réservé au bouton principal.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#F8F9FC"></i><b>Fond</b><span>#F8F9FC</span></div>
+      <div class="sw"><i style="background:#EDF1F7"></i><b>Surface</b><span>#EDF1F7</span></div>
+      <div class="sw"><i style="background:#EFE9E0"></i><b>Carte chaude (prix)</b><span>#EFE9E0</span></div>
+      <div class="sw"><i style="background:#171B3E"></i><b>Encre</b><span>#171B3E</span></div>
+      <div class="sw"><i style="background:#000000"></i><b>Noir (hero, cartes)</b><span>#000000</span></div>
+      <div class="sw"><i style="background:#12BFBF"></i><b>Accent</b><span>#12BFBF</span></div>
+      <div class="sw"><i style="background:#0E9C9C"></i><b>Accent foncé</b><span>#0E9C9C</span></div>
+      <div class="sw"><i style="background:var(--gradient-cta)"></i><b>Dégradé du bouton</b><span>#F45C9E → #FA9A5E → #FBD75F</span></div>
+      <div class="sw"><i style="background:rgba(23,27,62,0.12)"></i><b>Filet</b><span>rgba(23,27,62,0.12)</span></div>
+    </div>
+
+    <h3 style="font-size:1.2rem;margin:40px 0 16px">Boutons</h3>
+    <div class="on-black" style="margin-bottom:16px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#">Réserver un appel découverte</a>
+        <a class="btn btn-ghost" href="#">Voir la méthode</a>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-primary" href="#">Réserver un appel découverte</a>
+      <a class="btn btn-outline" href="#">Voir la méthode</a>
+    </div>
+
+    <h3 style="font-size:1.2rem;margin:40px 0 16px">Champs et messages</h3>
+    <div class="spec">
+      <div class="card">
+        <div class="field"><label for="e1">Email</label><input id="e1" type="email" placeholder="auteur@crescendo.fr"></div>
+        <div class="field err"><label for="e2">Mot de passe</label><input id="e2" type="password" value="123"><span class="msg">Identifiants incorrects.</span></div>
+      </div>
+      <div class="card">
+        <div class="alert ok">Article publié.</div>
+        <div class="alert warn">Brouillon non publié : invisible sur le blog.</div>
+        <div class="alert bad">Ce compte n'a pas le droit de modifier les articles.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Aperçu : landing</h2>
+    <p class="sub">Page marketing : en-tête clair, hero noir, quatre étapes, deux prix.</p>
+    <div class="mock">
+      <nav>
+        <span class="brand"><span class="mono">CR</span>Crescendo</span>
+        <span class="links"><a href="#" style="color:inherit;text-decoration:none">Nos services</a><a href="#" style="color:inherit;text-decoration:none">Blog</a><a href="#" style="color:inherit;text-decoration:none">Prix</a><a href="#" style="color:inherit;text-decoration:none">FAQ</a></span>
+        <a class="btn btn-primary" href="#">Réserver un appel découverte</a>
+      </nav>
+      <div class="hero">
+        <div>
+          <span class="badge">Automatisation &amp; IA pour PME</span>
+          <h1>Un premier automate en service sous 2 semaines, bâti sur une architecture qui tient</h1>
+          <p class="lead">Crescendo cartographie les tâches manuelles de votre PME, puis automatise la plus coûteuse. Vous validez chaque étape avant de payer la suivante.</p>
+          <div class="row">
+            <a class="btn btn-primary" href="#">Réserver un appel découverte</a>
+            <a class="btn btn-ghost" href="#">Voir la méthode</a>
+          </div>
+          <p class="note"><i>✔</i><span>1 nouveau projet par mois. Les créneaux sont limités et confirmés lors de l'appel. Réponse sous un jour ouvré.</span></p>
+        </div>
+        <div class="plan">
+          <div class="eyebrow">Plan d'architecture</div>
+          <div class="row-t"><b>Tâches manuelles cartographiées</b><span>Saisie en double, relances, reporting</span></div>
+          <div class="arrow">↓</div>
+          <div class="row-t"><b>Classées par heures gagnées</b><span>Diagnostic chiffré, validé par vous</span></div>
+          <div class="arrow">↓</div>
+          <div class="row-t"><b>Automate en service</b><span>Livré en 1 à 2 semaines</span></div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><small>Étape 1</small><h3>Appel découverte</h3><p>45 minutes pour regarder vos tâches manuelles.</p></div>
+        <div class="step"><small>Étape 2</small><h3>Diagnostic d'architecture</h3><p>Cartographie, classement par heures gagnées, plan.</p></div>
+        <div class="step"><small>Étape 3</small><h3>Premier automate</h3><p>Livré en 1 à 2 semaines sur l'architecture validée.</p></div>
+        <div class="step"><small>Étape 4</small><h3>Prise en main et support</h3><p>Documentation, formation, 1 mois de support.</p></div>
+      </div>
+      <div class="prices">
+        <div class="price">
+          <span class="kicker"><i style="display:inline-block;width:32px;height:2px;background:#FF6A45"></i>Étape 1</span>
+          <h3 style="font-size:1.5rem;margin-top:8px">Diagnostic d'architecture</h3>
+          <div class="amount">300 €</div>
+          <ul><li>Cartographie des tâches et des flux</li><li>Classement par heures gagnées</li><li>Plan d'architecture, validé par vous</li></ul>
+          <a class="btn btn-primary" href="#">Réserver un appel découverte</a>
+        </div>
+        <div class="price dark">
+          <span class="kicker" style="color:var(--accent)">Étape 2</span>
+          <h3 style="font-size:1.5rem;margin-top:8px">Projet au forfait</h3>
+          <div class="amount">3 000 €</div>
+          <p>Si vous poursuivez après le diagnostic, les 300 € sont déduits : 2 700 € restants.</p>
+          <ul><li>Un automate livré et mis en service</li><li>Documentation des flux</li><li>Prise en main de votre équipe</li><li>1 mois de support après livraison</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

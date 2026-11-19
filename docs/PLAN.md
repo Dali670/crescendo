@@ -27,10 +27,10 @@ Le formulaire de contact disparaît. Un seul bouton « Réserver un appel décou
 
 ### Critères d'acceptation
 
-- [ ] ~~Aucune page ne contient de formulaire de contact~~ (déplacé en phase 8, décision du 2026-11-19 : retrait plus tard)
-- [ ] Depuis chaque page, un clic sur « Réserver un appel découverte » ouvre l'agenda
-- [ ] « Réponse sous un jour ouvré » est affiché près de la réservation
-- [ ] « 1 nouveau projet par mois » s'écrit de la même façon sur toute la page
+- [ ] **P1-C1** ~~Aucune page ne contient de formulaire de contact~~ (déplacé en P8-C1, décision du 2026-11-19 : retrait plus tard)
+- [x] **P1-C2** : le visiteur, sur n'importe quelle page, clique sur « Réserver un appel découverte », il voit s'ouvrir l'agenda de réservation
+- [x] **P1-C3** : le visiteur regarde la section de réservation, il voit « Réponse sous un jour ouvré »
+- [x] **P1-C4** : le visiteur parcourt le site, il voit « 1 nouveau projet par mois » écrit de la même façon partout
 
 ## Bloquée par
 

@@ -3,3 +3,7 @@
 node_modules/
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+
+test-results/
+playwright-report/
+.claude/verifie.json

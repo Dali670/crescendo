@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "skills": {
+    "agent-desktop": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/agent-desktop/SKILL.md",
+      "computedHash": "47c7927d5b8ce6392cde9d1e3cf02fef903fe55c16a0d9f07d1104a07d910234"
+    },
+    "agent-desktop-ffi": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/agent-desktop-ffi/SKILL.md",
+      "computedHash": "ab39a2404085b0b34d7a7de83482fd8b327f1be12c9fdf0e9a8f67989a868d1f"
+    },
+    "agent-desktop-linux": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/agent-desktop-linux/SKILL.md",
+      "computedHash": "c0eba7e91c042942600e71edf69a19dfe9118ee5fb7f85baac6a19bf297295d6"
+    },
+    "agent-desktop-macos": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/agent-desktop-macos/SKILL.md",
+      "computedHash": "b14268c86abf16d007f007449ffae6f5b086042c290e27f35da5f7c74bb7204c"
+    },
+    "agent-desktop-windows": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/agent-desktop-windows/SKILL.md",
+      "computedHash": "44e940f3bebe37b25c082831e8109bbcda3d9e1823d73270db1b73008a040df8"
+    },
+    "branche": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/branche/SKILL.md",
+      "computedHash": "5b1cfacc2057553ed521b5ea86b47ee882f3a6db9f5c58c20c6da4c67f9f990e"
+    },
+    "cadre": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/cadre/SKILL.md",
+      "computedHash": "30adb5984dfce5b71b410732bc3297b9c7895a5225e7dc214e87171f282acf21"
+    },
+    "design": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/design/SKILL.md",
+      "computedHash": "9d12fa5fe42f4512b2a22210a3843229df90492727a45100bba45cc5faa54738"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "b10eab0a9684cd09cf34c31ef04a3bf530a5f4404422f9c520d42372d670c7fc"
+    },
+    "illustre": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/illustre/SKILL.md",
+      "computedHash": "ca4d05f8d3360a9bba21d36336e9195a9470852aaec7301ff2646f0fe29d33a9"
+    },
+    "interroge": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/interroge/SKILL.md",
+      "computedHash": "4abc604f66a3b2e95da56aa96702fc8302579340155425158805e46b947a224f"
+    },
+    "investigue": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/investigue/SKILL.md",
+      "computedHash": "c90f3acbf1680aeca4881a83babbe9954babb3d83e774b6351088d98a4bac2b0"
+    },
+    "jev-desktop": {
+      "source": "vercel-labs/agent-desktop",
+      "sourceType": "github",
+      "skillPath": "skills/jev-desktop/SKILL.md",
+      "computedHash": "6042574bf99dfafc720639eb03bacf09f6247dbaa0fb21731a8b494c00c30ed9"
+    },
+    "livre": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/livre/SKILL.md",
+      "computedHash": "af62f029ffde9d9a3e30098da7c1f3f90c78b636a427d6fad4eb41d1cb442156"
+    },
+    "planifie": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/planifie/SKILL.md",
+      "computedHash": "d35acf1d903c67fd6ddf691df2b98b5d4da0c1fbf208a82d41d658a9aab8c32d"
+    },
+    "supabase-server": {
+      "source": "supabase/server",
+      "commit": "b0fcc4c266391a9549c4f1dbf16dfd336316c87b",
+      "sourceType": "github",
+      "skillPath": "skills/supabase-server/SKILL.md",
+      "computedHash": "9a560aef83b25cbd6aa1c4f77dcdad7c771014d7ba30f64811b81516477ead12"
+    },
+    "verifie": {
+      "source": "naiersaidane/claude-mastery",
+      "commit": "ba810b1f6b0014706896c27dac8ebfe7fcea88fc",
+      "sourceType": "github",
+      "skillPath": "skills/verifie/SKILL.md",
+      "computedHash": "4c4297820225e2ec05bb8bf8069ff01e91ca399b8e1187dc4772458135a2054f"
+    }
+  }
+}

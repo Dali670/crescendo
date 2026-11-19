@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crescendo — aperçu du système de design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Geist:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#EEF1F5; --paper-2:#FFFFFF; --ink:#101B38; --ink-soft:#46506B;
+  --signal:#2339E8; --signal-ink:#FFFFFF; --signal-soft:#DDE2FB;
+  --rule:#B9C2D3; --field-border:#6F7B94;
+  --success:#0F7B4B; --warning:#8A5A00; --danger:#B3261E; --info:#2339E8;
+  --display:"Bricolage Grotesque",sans-serif; --text:"Newsreader",Georgia,serif;
+  --data:"Geist",sans-serif; --code:"JetBrains Mono",monospace; --radius:10px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#0D1530; --paper-2:#16204A; --ink:#E8ECF8; --ink-soft:#A5AFCB;
+  --signal:#7C8CFF; --signal-ink:#0D1530; --signal-soft:#212C66;
+  --rule:#2E3A6B; --field-border:#7684C0;
+  --success:#5FD3A0; --warning:#F2C26B; --danger:#FF8A80; --info:#7C8CFF;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:1.1875rem/1.6 var(--text);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin:0 0 .5em;text-wrap:balance}
+h1{font-size:clamp(2.2rem,6vw,4rem);max-width:18ch}
+h2{font-size:clamp(1.6rem,3.4vw,2.4rem)}
+h3{font-size:1.2rem}
+p{margin:0 0 1em;max-width:62ch}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+@media(min-width:48rem){.wrap{padding:0 2rem}}
+section{padding:4rem 0;border-bottom:1px solid var(--rule)}
+.eyebrow{font:500 .85rem var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.meta{font-family:var(--display);color:var(--ink-soft);font-size:.95rem}
+.btn{font:500 1rem var(--display);min-height:44px;padding:.65rem 1.25rem;border-radius:var(--radius);border:2px solid var(--signal);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background-color .2s ease-out,color .2s ease-out}
+.btn.primary{background:var(--signal);color:var(--signal-ink)}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn.secondary{background:transparent;color:var(--signal)}
+.btn.secondary:hover{background:var(--signal-soft)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink)}
+.btn.ghost:hover{border-color:var(--rule)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:3px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(10rem,1fr));gap:1rem}
+.sw{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden}
+.sw i{display:block;height:4rem}
+.sw div{padding:.6rem .8rem;font:.9rem var(--data)}
+.sw b{display:block;font-family:var(--display)}
+.row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin:1.5rem 0}
+input{font:1rem var(--data);padding:.65rem .8rem;min-height:44px;border:2px solid var(--field-border);border-radius:var(--radius);background:var(--paper-2);color:var(--ink);width:15rem}
+input:focus{outline:3px solid var(--signal);outline-offset:2px;border-color:var(--signal)}
+input.err{border-color:var(--danger)}
+.alert{border-left:4px solid;padding:.6rem 1rem;background:var(--paper-2);font:.95rem var(--data);max-width:34rem;margin:.5rem 0}
+.alert.ok{border-color:var(--success)}.alert.wa{border-color:var(--warning)}.alert.er{border-color:var(--danger)}.alert.in{border-color:var(--info)}
+.card{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);padding:1.5rem;max-width:26rem}
+table{border-collapse:collapse;font:.95rem var(--data);font-variant-numeric:tabular-nums;width:100%;max-width:34rem}
+th,td{padding:.5rem .75rem;border-bottom:1px solid var(--rule);text-align:left}
+td.n,th.n{text-align:right}
+pre{font:.9rem/1.5 var(--code);background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);padding:1rem;overflow:auto;max-width:40rem}
+/* mockup */
+.mock{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--paper)}
+.mock header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--rule);flex-wrap:wrap;gap:.75rem}
+.brand{font:700 1.3rem var(--display);letter-spacing:-.02em}
+.menu{display:flex;gap:1.25rem;font:500 1rem var(--display);align-items:center;flex-wrap:wrap}
+.menu a{color:var(--ink);text-decoration:none}
+.hero{padding:4rem 1.5rem 3rem}
+.lead{color:var(--ink-soft);font-size:1.25rem;max-width:40rem}
+.steps{list-style:none;margin:0;padding:0 1.5rem 3rem;counter-reset:s}
+.steps li{display:grid;grid-template-columns:4rem 1fr;gap:1rem;padding:1.5rem 0;border-top:1px solid var(--rule);counter-increment:s}
+.steps li::before{content:counter(s,decimal-leading-zero);font:700 2rem var(--display);color:var(--signal)}
+.steps h3{margin-bottom:.25rem}.steps p{margin:0;color:var(--ink-soft)}
+.cta{background:var(--ink);color:var(--paper);padding:3rem 1.5rem}
+.cta h2{max-width:22ch}
+.cta .btn.primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.cta .btn.primary:hover{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<section>
+<div class="wrap">
+  <p class="eyebrow">Système de design · Crescendo</p>
+  <h1>Les factures, devis et relances se traitent sans ressaisie.</h1>
+  <p class="lead" style="color:var(--ink-soft);font-size:1.25rem;max-width:40rem">Sobre, précis, lisible. Un bleu rare sur un fond froid, deux polices qui se répondent.</p>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <p class="eyebrow">1 · Typographie</p>
+  <h2 style="font-family:var(--display)">Bricolage Grotesque <span class="meta">— titres, 700</span></h2>
+  <p>Newsreader pour le texte : un paragraphe de blog se lit longtemps, sans fatigue. Une PME qui perd quinze heures par semaine sur la saisie ne manque pas d'outils, elle manque d'un plan d'ensemble.</p>
+  <p class="meta">Geist pour les données · JetBrains Mono pour le code</p>
+  <table>
+    <thead><tr><th>Automate</th><th class="n">Délai</th><th class="n">Heures / mois</th></tr></thead>
+    <tbody>
+      <tr><td>Relance de factures</td><td class="n">1 sem.</td><td class="n">18</td></tr>
+      <tr><td>Saisie des devis</td><td class="n">2 sem.</td><td class="n">24</td></tr>
+      <tr><td>Reporting hebdo</td><td class="n">1 sem.</td><td class="n">9</td></tr>
+    </tbody>
+  </table>
+  <pre>const { data } = await supabase
+  .from('posts')
+  .select('titre, publie_le')
+  .order('publie_le', { ascending: false })</pre>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <p class="eyebrow">2 · Couleur</p>
+  <div class="swatches">
+    <div class="sw"><i style="background:var(--paper)"></i><div><b>Papier</b>#EEF1F5 / #0D1530</div></div>
+    <div class="sw"><i style="background:var(--paper-2)"></i><div><b>Surface</b>#FFFFFF / #16204A</div></div>
+    <div class="sw"><i style="background:var(--ink)"></i><div><b>Encre</b>#101B38 / #E8ECF8</div></div>
+    <div class="sw"><i style="background:var(--ink-soft)"></i><div><b>Encre douce</b>#46506B / #A5AFCB</div></div>
+    <div class="sw"><i style="background:var(--signal)"></i><div><b>Signal</b>#2339E8 / #7C8CFF</div></div>
+    <div class="sw"><i style="background:var(--rule)"></i><div><b>Filet</b>#B9C2D3 / #2E3A6B</div></div>
+    <div class="sw"><i style="background:var(--success)"></i><div><b>Succès</b>#0F7B4B / #5FD3A0</div></div>
+    <div class="sw"><i style="background:var(--warning)"></i><div><b>Alerte</b>#8A5A00 / #F2C26B</div></div>
+    <div class="sw"><i style="background:var(--danger)"></i><div><b>Erreur</b>#B3261E / #FF8A80</div></div>
+  </div>
+  <div class="row">
+    <a class="btn primary" href="#">Réserver un appel découverte</a>
+    <a class="btn secondary" href="#">Voir la méthode</a>
+    <a class="btn ghost" href="#">Lire le blog</a>
+  </div>
+  <div class="row">
+    <input placeholder="Adresse e-mail" aria-label="Adresse e-mail">
+    <input class="err" value="dirigeant@pme" aria-label="E-mail invalide" aria-invalid="true">
+  </div>
+  <div class="alert ok">Article publié.</div>
+  <div class="alert wa">Brouillon non enregistré.</div>
+  <div class="alert er">Adresse e-mail invalide.</div>
+  <div class="alert in">Le diagnostic dure une heure.</div>
+  <div class="card" style="margin-top:1.5rem"><h3>Diagnostic d'architecture</h3><p style="margin:0;color:var(--ink-soft)">On cartographie vos outils et on repère où le manuel coûte le plus.</p></div>
+</div>
+</section>
+
+<section style="border-bottom:0">
+<div class="wrap">
+  <p class="eyebrow">3 · Mockup : landing</p>
+  <div class="mock">
+    <header>
+      <span class="brand">Crescendo</span>
+      <nav class="menu"><a href="#">Méthode</a><a href="#">Blog</a><a class="btn primary" href="#">Appel découverte</a></nav>
+    </header>
+    <div class="hero">
+      <h1>Factures, devis et relances traités sans ressaisie.</h1>
+      <p class="lead">Crescendo automatise les tâches manuelles de votre PME. Premier automate livré en une à deux semaines, au forfait.</p>
+      <div class="row"><a class="btn primary" href="#">Réserver un appel découverte</a><a class="btn secondary" href="#">Comment ça marche</a></div>
+    </div>
+    <ol class="steps">
+      <li><div><h3>Appel découverte</h3><p>Trente minutes pour repérer ce qui vous fait perdre du temps.</p></div></li>
+      <li><div><h3>Diagnostic d'architecture</h3><p>Une cartographie de vos outils et un plan d'ensemble, pas des automatisations isolées.</p></div></li>
+      <li><div><h3>Projet au forfait</h3><p>Un premier automate livré en une à deux semaines, payé par jalon après validation.</p></div></li>
+    </ol>
+    <div class="cta">
+      <h2>Libérez du temps d'équipe dès ce mois-ci.</h2>
+      <a class="btn primary" href="#">Réserver un appel découverte</a>
+    </div>
+  </div>
+</div>
+</section>
+
+</body>
+</html>

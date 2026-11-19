@@ -27,7 +27,7 @@ Le formulaire de contact disparaît. Un seul bouton « Réserver un appel décou
 
 ### Critères d'acceptation
 
-- [ ] Aucune page ne contient de formulaire de contact
+- [ ] ~~Aucune page ne contient de formulaire de contact~~ (déplacé en phase 8, décision du 2026-11-19 : retrait plus tard)
 - [ ] Depuis chaque page, un clic sur « Réserver un appel découverte » ouvre l'agenda
 - [ ] « Réponse sous un jour ouvré » est affiché près de la réservation
 - [ ] « 1 nouveau projet par mois » s'écrit de la même façon sur toute la page
@@ -149,6 +149,27 @@ L'auteur se connecte, voit la liste de ses articles avec statut et date de créa
 
 ---
 
+## Phase 8 : Retrait du formulaire de contact
+
+**User stories** : US-7, US-8
+
+### Ce qu'on livre
+
+Le formulaire de contact, qui n'envoie rien, disparaît de la landing. Le visiteur n'a plus que la réservation d'un appel découverte pour prendre contact. La section de réservation garde son texte et ses informations (réponse sous un jour ouvré, un projet par mois).
+
+### Critères d'acceptation
+
+- [ ] Aucune page ne contient de formulaire de contact
+- [ ] La section de réservation garde un seul bouton « Réserver un appel découverte »
+- [ ] Aucun lien ni texte du site ne renvoie à un formulaire
+- [ ] « Réponse sous un jour ouvré » et « 1 nouveau projet par mois » restent affichés
+
+## Bloquée par
+
+- Phase 3 (la navigation et le pied de page sont stabilisés)
+
+---
+
 ## Phase 7 : Vérification de bout en bout
 
 **User stories** : aucune nouvelle, valide les critères de succès du PRD
@@ -168,4 +189,4 @@ Un passage complet du site avec les critères de succès du PRD : un visiteur r�
 
 ## Bloquée par
 
-- Phases 1 à 6
+- Phases 1 à 6 et 8
